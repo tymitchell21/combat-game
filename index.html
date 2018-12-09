@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Super Smash Bros</title>
+
+    <link rel="stylesheet" href="links/style.css">
+    <script src="links/gamemanager.js"></script>
+    <script src="links/player.js"></script>
+    <script src="links/enemy.js"></script>
+</head>
+<body>
+    <div id='menu'>
+        <div id='player-selection'>
+            <a href='#' onclick='Game.startGame("Warrior")'>
+                <img src="" alt="" srcset="">
+                <h3>Warrior</h3>
+            </a>
+            <a href='#' onclick='Game.startGame("Mercenary")'>
+                <img src="" alt="" srcset="">
+                <h3>Mercenary</h3>
+            </a>
+            <a href='#' onclick='Game.startGame("Gunner")'>
+                <img src="" alt="" srcset="">
+                <h3>Gunner</h3>
+            </a>
+        </div>
+        <div id='pre-fight' style='display: none;'>
+            <div id='player-pre-fight'>
+                <img src="" alt="" srcset="">
+                <h3>Warrior</h3>
+            </div>
+            <div>
+                <h1>VS.</h1>
+                <button id='start-button' onclick='Game.startFight()'>Start Fight</button>
+            </div>
+            <div id='enemy-pre-fight'>
+                <img src="" alt="" srcset="">
+                <h3>Goblin</h3>
+            </div>
+        </div>
+    </div>
+    <div id='fight-menu' style='display: none;'>
+        <h1>Choose action:</h1>
+        <a onclick='player.attack()'>Attack</a>
+        <a onclick='player.useMagic()'>Magic</a>
+        <a onclick='player.useShield()'>Shield</a>
+        <a onclick='player.usePotion()'>Potion</a>
+    </div>
+    <div id='action-sequence' style='display: block;'>
+        <h1 id='last-action'></h1>
+        <h1 id='next-turn'>It is your turn</h1>
+        <button id='continue' style='display: none' onclick='enemy.actionChoice()'>continue</button>
+    </div>
+    <div id='game-wrap'>
+        <div id='platform'>
+            <div id='character-one' style="top: -130px; left: 200px;">
+                <div id='player-stats'>
+                    <p id='player-hp'>hp</p>
+                    <p id='player-mp'>mp</p>
+                </div>
+                <img id='character-one-image' src="" alt="">
+            </div>
+            <div id='enemy' style="top: -130px; left: 700px;">
+                <div id='enemy-stats'>
+                    <p id='enemy-hp'>hp</p>
+                    <p id='enemy-mp'>mp</p>
+                </div>
+                <img id='enemy-image' src="" alt="">
+            </div>
+        </div>
+    </div>
+</body>
+</html>
