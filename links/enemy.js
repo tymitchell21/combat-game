@@ -64,7 +64,6 @@ function Enemy(enemyType, hp, mp, strength, speed, magic, shield, potion) {
 
     this.attack = function () {
         const lastAction = document.querySelector('#last-action')
-        const fightMenu = document.querySelector('#fight-menu')
         const playerHP = document.querySelector('#player-hp')
 
         if (player.shield === false) {
@@ -85,6 +84,8 @@ function Enemy(enemyType, hp, mp, strength, speed, magic, shield, potion) {
             deg-=11
             x-=5
             if (x <= 400) {
+                const fightMenu = document.querySelector('#fight-menu')
+                fightMenu.style.display = 'flex'
                 clearInterval(myVar)
                 weapon.style.display = 'none'
             }
@@ -93,14 +94,12 @@ function Enemy(enemyType, hp, mp, strength, speed, magic, shield, potion) {
             weapon.style.transform = `rotate(${deg}deg)`
         }
 
-        fightMenu.style.display = 'flex'
         lastAction.innerHTML = 'The enemy has attacked you'
         Game.updateFight('player')
     };
 
     this.useMagic = function () {
         const lastAction = document.querySelector('#last-action')
-        const fightMenu = document.querySelector('#fight-menu')
         const playerHP = document.querySelector('#player-hp')
         const enemyMP = document.querySelector('#enemy-mp')
 
@@ -127,6 +126,8 @@ function Enemy(enemyType, hp, mp, strength, speed, magic, shield, potion) {
             x-=10
             y-=1.5
             if (x <= 200) {
+                const fightMenu = document.querySelector('#fight-menu')
+                fightMenu.style.display = 'flex'
                 clearInterval(myVar)
                 magicBall.style.display = 'none'
             }
@@ -136,14 +137,12 @@ function Enemy(enemyType, hp, mp, strength, speed, magic, shield, potion) {
             magicBall.style.height = height + 'px'
         }
 
-        fightMenu.style.display = 'flex'
         lastAction.innerHTML = 'The enemy has used magic on you'
         Game.updateFight('player')
     };
 
     this.useShield = function () {
         const lastAction = document.querySelector('#last-action')
-        const fightMenu = document.querySelector('#fight-menu')
         if (this.shield === false) this.shield = !this.shield
 
         myVar = setInterval(showShield, 10)
@@ -154,19 +153,19 @@ function Enemy(enemyType, hp, mp, strength, speed, magic, shield, potion) {
             shieldImage.style.display = 'block'
             shieldTime+=1
             if (shieldTime >= 50) {
+                const fightMenu = document.querySelector('#fight-menu')
+                fightMenu.style.display = 'flex'
                 clearInterval(myVar)
                 shieldImage.style.display = 'none'
             }
         }
 
-        fightMenu.style.display = 'flex'
         lastAction.innerHTML = 'The enemy has shielded'
         Game.updateFight('player')
     };
 
     this.usePotion = function () {
         const lastAction = document.querySelector('#last-action')
-        const fightMenu = document.querySelector('#fight-menu')
         const enemyHP = document.querySelector('#enemy-hp')
         let healAmt
 
@@ -184,6 +183,8 @@ function Enemy(enemyType, hp, mp, strength, speed, magic, shield, potion) {
             potionBottle.style.display = 'block'
             deg-=1
             if (deg <= -150) {
+                const fightMenu = document.querySelector('#fight-menu')
+                fightMenu.style.display = 'flex'
                 clearInterval(myVar)
                 potionBottle.style.display = 'none'
             }
@@ -196,7 +197,6 @@ function Enemy(enemyType, hp, mp, strength, speed, magic, shield, potion) {
 
         enemyHP.style.width = this.hp + '%'
 
-        fightMenu.style.display = 'flex'
         lastAction.innerHTML = `The enemy has used a potion, ${this.potion} left`
         Game.updateFight('player')
     };

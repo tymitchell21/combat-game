@@ -31,8 +31,10 @@ function Player(playerType, hp, mp, strength, speed, magic, shield, potion) {
             deg+=11
             x+=5
             if (x >= 900) {
-                clearInterval(myVar)
                 weapon.style.display = 'none'
+                const continueBtn = document.querySelector('#continue')
+                continueBtn.style.display = 'block'
+                clearInterval(myVar)
             }
             
             weapon.style.left = x + 'px'
@@ -58,6 +60,8 @@ function Player(playerType, hp, mp, strength, speed, magic, shield, potion) {
                 shieldImage.style.display = 'block'
                 shieldTime+=1
                 if (shieldTime >= 50) {
+                    const continueBtn = document.querySelector('#continue')
+                    continueBtn.style.display = 'block'
                     clearInterval(myVar)
                     shieldImage.style.display = 'none'
                 }
@@ -97,6 +101,8 @@ function Player(playerType, hp, mp, strength, speed, magic, shield, potion) {
                 x+=5
                 y-=2
                 if (x >= 850) {
+                    const continueBtn = document.querySelector('#continue')
+                    continueBtn.style.display = 'block'
                     clearInterval(myVar)
                     magicBall.style.display = 'none'
                 }
@@ -142,6 +148,8 @@ function Player(playerType, hp, mp, strength, speed, magic, shield, potion) {
                 potionBottle.style.display = 'block'
                 deg-=1
                 if (deg <= -150) {
+                    const continueBtn = document.querySelector('#continue')
+                    continueBtn.style.display = 'block'
                     clearInterval(myVar)
                     potionBottle.style.display = 'none'
                 }

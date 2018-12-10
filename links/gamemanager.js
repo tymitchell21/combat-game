@@ -86,8 +86,6 @@ const Game = {
         nextTurn.innerHTML = `It is now the ${nextPerson}'s turn`
 
         if (nextPerson === 'enemy') {
-            const continueBtn = document.querySelector('#continue')
-            continueBtn.style.display = 'block'
             fightMenu.style.display = 'none'
         }
 
