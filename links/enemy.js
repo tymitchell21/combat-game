@@ -11,86 +11,43 @@ function Enemy(enemyType, hp, mp, strength, speed, magic, shield, potion) {
     this.potion = potion;
 
     this.actionChoice = function () {
+        let choice = [0,0,0,0,1,1,1,2,2,3]
+        let choiceUnder50HP = [0,0,1,1,2,2,2,3,3,3]
         let random
+        let action
+
         if (parseInt(this.potion) > 0) {
             random = Math.floor(Math.random() * Math.floor(10));
-            console.log(random)
         } else {
             random = Math.floor(Math.random() * Math.floor(7));
         }
 
         if (this.hp >= 50) {
-            switch (random) {
-                case 0:
-                    this.attack()
-                    break;
-                case 1:
-                    this.attack()
-                    break;
-                case 2:
-                    this.attack()
-                    break;
-                case 3:
-                    this.attack()
-                    break;
-                case 4:
-                    this.useMagic()
-                    break;
-                case 5:
-                    this.useMagic()
-                    break;
-                case 6:
-                    this.useMagic()
-                    break;
-                case 7:
-                    this.useShield()
-                    break;
-                case 8:
-                    this.useShield()
-                    break;
-                case 9:
-                    this.usePotion()
-                    break;
-                default:
-                    this.attack()
-            }
+            action = choice[random]
+            console.log('one')
+        } else {
+            action = choiceUnder50HP[random]
+            console.log('two')
         }
-        else {
-            switch (random) {
-                case 0:
-                    this.attack()
-                    break;
-                case 1:
-                    this.attack()
-                    break;
-                case 2:
-                    this.useMagic()
-                    break;
-                case 3:
-                    this.useMagic()
-                    break;
-                case 4:
-                    this.useShield()
-                    break;
-                case 5:
-                    this.useShield()
-                    break;
-                case 6:
-                    this.useShield()
-                    break;
-                case 7:
-                    this.usePotion()
-                    break;
-                case 8:
-                    this.usePotion()
-                    break;
-                case 9:
-                    this.usePotion()
-                    break;
-                default:
-                    this.attack()
-            }
+        console.log(action)
+
+        switch (action) {
+            case 0:
+                this.attack()
+                break;
+            case 1:
+                this.useMagic()
+                break;
+            case 2:
+                this.useShield()
+                break;
+            case 3:
+                this.usePotion()
+                break;
+            default:
+                this.attack()
         }
+
         const continueBtn = document.querySelector('#continue')
         continueBtn.style.display = 'none'
     };

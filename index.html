@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Super Smash Bros</title>
+    <title>Final Fantasy Battle Royal</title>
 
     <link rel="stylesheet" href="links/style.css">
     <script src="links/gamemanager.js"></script>
@@ -14,13 +14,13 @@
 <body>
     <div id='menu'>
         <div id='player-selection'>
-            <a href='#' onclick='Game.startGame("Warrior")'>
+            <a href='#' onclick='Game.startGame("Cloud")'>
                 <img src="" alt="" srcset="">
-                <h3>Warrior</h3>
+                <h3>Cloud</h3>
             </a>
-            <a href='#' onclick='Game.startGame("Mercenary")'>
+            <a href='#' onclick='Game.startGame("Tidus")'>
                 <img src="" alt="" srcset="">
-                <h3>Mercenary</h3>
+                <h3>Tidus</h3>
             </a>
             <a href='#' onclick='Game.startGame("Gunner")'>
                 <img src="" alt="" srcset="">
@@ -30,7 +30,7 @@
         <div id='pre-fight' style='display: none;'>
             <div id='player-pre-fight'>
                 <img src="" alt="" srcset="">
-                <h3>Warrior</h3>
+                <h3>Cloud</h3>
             </div>
             <div>
                 <h1>VS.</h1>
@@ -38,33 +38,35 @@
             </div>
             <div id='enemy-pre-fight'>
                 <img src="" alt="" srcset="">
-                <h3>Goblin</h3>
+                <h3>Sephiroth</h3>
             </div>
         </div>
     </div>
     <div id='fight-menu' style='display: none;'>
         <h1>Choose action:</h1>
-        <a onclick='player.attack()'>Attack</a>
-        <a onclick='player.useMagic()'>Magic</a>
-        <a onclick='player.useShield()'>Shield</a>
-        <a onclick='player.usePotion()'>Potion</a>
+        <button onclick='player.attack()'>Attack</button>
+        <button onclick='player.useMagic()'>Magic</button>
+        <button onclick='player.useShield()'>Shield</button>
+        <button onclick='player.usePotion()'>Potion</button>
     </div>
-    <div id='action-sequence' style='display: block;'>
+    <div id='action-sequence' style='display: none;'>
         <h1 id='last-action'></h1>
         <h1 id='next-turn'>It is your turn</h1>
-        <button id='continue' style='display: none' onclick='enemy.actionChoice()'>continue</button>
+        <div id='button'>
+            <button id='continue' style='display: none' onclick='enemy.actionChoice()'>continue</button>
+        </div>
     </div>
     <div id='game-wrap'>
         <div id='platform'>
-            <div id='character-one' style="top: -130px; left: 200px;">
-                <div id='player-stats'>
+            <div id='character-one'>
+                <div id='player-stats' style='display: none;'>
                     <p id='player-hp'>hp</p>
                     <p id='player-mp'>mp</p>
                 </div>
                 <img id='character-one-image' src="" alt="">
             </div>
-            <div id='enemy' style="top: -130px; left: 700px;">
-                <div id='enemy-stats'>
+            <div id='enemy'>
+                <div id='enemy-stats' style='display: none;'>
                     <p id='enemy-hp'>hp</p>
                     <p id='enemy-mp'>mp</p>
                 </div>
