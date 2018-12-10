@@ -63,7 +63,10 @@ function Player(playerType, hp, mp, strength, speed, magic, shield, potion) {
                 }
             }
             lastAction.innerHTML = 'You have used your shield'
-        } 
+        } else {
+            lastAction.innerHTML = 'You are already shielded'
+            return
+        }
 
         Game.updateFight('enemy')
     };

@@ -40,7 +40,11 @@ function Enemy(enemyType, hp, mp, strength, speed, magic, shield, potion) {
                 }
                 break;
             case 2:
-                this.useShield()
+                if (this.shield == fasle) {
+                    this.useShield()
+                } else {
+                    this.attack()
+                }
                 break;
             case 3:
                 if (this.hp < 100) {
