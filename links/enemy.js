@@ -29,7 +29,6 @@ function Enemy(enemyType, hp, mp, strength, speed, magic, shield, potion) {
             action = choiceUnder50HP[random]
             console.log('two')
         }
-        console.log(action)
 
         switch (action) {
             case 0:
