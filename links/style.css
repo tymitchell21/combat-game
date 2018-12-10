@@ -170,4 +170,22 @@
     opacity: 0.5;
     width: 500px;
 }
+#weapon {
+    display: none;
+    z-index: 1;
+    position: absolute;
+    top: 325px;
+    left: 380px;
+    width: 170px;
+    transform: rotate(275deg);
+}
+#weapon {
+    display: none;
+    z-index: 1;
+    position: absolute;
+    top: 325px;
+    left: 380px;
+    width: 170px;
+    transform: rotate(275deg);
+}
 

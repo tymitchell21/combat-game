@@ -13,6 +13,8 @@ function Player(playerType, hp, mp, strength, speed, magic, shield, potion) {
     this.attack = function () {
         const lastAction = document.querySelector('#last-action')
         const enemyHP = document.querySelector('#enemy-hp')
+        const weapon = document.querySelector('#weapon')
+
         if (enemy.shield === false) {
             enemy.hp -= 20;
         } else {
@@ -20,6 +22,24 @@ function Player(playerType, hp, mp, strength, speed, magic, shield, potion) {
             enemy.shield = false
         }
         enemyHP.style.width = enemy.hp + '%'
+
+        myVar = setInterval(weaponFlip, 10)
+        let deg = 275;
+        let x = 380;
+        weapon.style.display = 'block'
+
+        function weaponFlip () {
+            const weapon = document.querySelector('#weapon')
+            deg+=11
+            x+=5
+            if (x >= 900) {
+                clearInterval(myVar)
+                weapon.style.display = 'none'
+            }
+            
+            weapon.style.left = x + 'px'
+            weapon.style.transform = `rotate(${deg}deg)`
+        }
 
         lastAction.innerHTML = 'You attacked the enemy'
         Game.updateFight('enemy')
