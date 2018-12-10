@@ -5,18 +5,26 @@ const Game = {
     },
     createPlayer: function(playerType) {
         const playerImage = document.querySelector('#character-one-image')
+        const prePlayerName = document.querySelector('#pre-player-name')
+    
         switch (playerType) {
             case 'Cloud': 
                 player = new Player (playerType, 100, 100, 70, 60, 30, false, 3)
                 playerImage.src = 'links/img/cloud.png'
-                playerImage.height = '100px'
+                playerImage.id = 'cloud'
+                prePlayerName.innerHTML = 'Cloud'
                 break;
-            case 'Tidus':
+            case 'Auron':
                 player = new Player (playerType, 100, 100, 60, 80, 40, false, 3)
-                playerImage.src = 'links/img/tidus.png'
+                playerImage.src = 'links/img/auron.png'
+                playerImage.id = 'auron'
+                prePlayerName.innerHTML = 'Auron'
                 break;
-            case 'Gunner':
+            case 'Tifa':
                 player = new Player (playerType, 100, 100, 30, 50, 90, false, 3)
+                playerImage.src = 'links/img/tifa.png'
+                playerImage.id = 'tifa'
+                prePlayerName.innerHTML = 'Tifa'
                 break;
         }
         const playerSelect = document.querySelector('#player-selection')

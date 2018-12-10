@@ -34,7 +34,6 @@ function Enemy(enemyType, hp, mp, strength, speed, magic, shield, potion) {
                 this.attack()
                 break;
             case 1:
-                console.log('magic')
                 if (this.mp >= 25) {
                     this.useMagic()
                 } else {
@@ -45,7 +44,6 @@ function Enemy(enemyType, hp, mp, strength, speed, magic, shield, potion) {
                 this.useShield()
                 break;
             case 3:
-                console.log('potion')
                 if (this.hp < 100) {
                     this.usePotion()
                 } else {

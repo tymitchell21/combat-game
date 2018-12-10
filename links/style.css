@@ -19,8 +19,9 @@
 }
 #pre-fight {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
+    padding: 0 25px;
 }
 #fight-menu {
     background-color: darkgrey;
@@ -43,7 +44,7 @@
 }
 #character-one {
     position: relative;
-    left: 200px;
+    left: 150px;
     top: -130px; 
     height: 160px;
     width: 200px;
@@ -70,11 +71,26 @@
     height: 50%;
     margin: 0px;
 }
-#character-one img {
+#cloud {
     position: relative;
     top: -80px;
     height: 176px;
     width: 225px;
+}
+#auron {
+    position: relative;
+    left: 10px;
+    top: -50px;
+    height: 140px;
+    width: 140px;
+    transform:scaleX(-1);
+}
+#tifa {
+    position: relative;
+    left: 0px;
+    top: -50px;
+    height: 140px;
+    width: 160px;
 }
 #enemy {
     position: relative;
@@ -114,6 +130,10 @@
     height: 50%;
     margin: 0px;
 }
+#start-button {
+    width: 100px;
+    height: 50px;
+}
 #platform {
     display: flex;
     position: relative;
@@ -129,7 +149,7 @@
     position: absolute;
     border-radius: 25px;
     top: 50px;
-    left: 485px;
+    left: 460px;
     padding: 20px;
     background-color: green;
     opacity: 0.5;
