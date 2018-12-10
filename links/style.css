@@ -179,13 +179,60 @@
     width: 170px;
     transform: rotate(275deg);
 }
-#weapon {
+#player-magic {
+    display: none;
+    z-index: 1;
+    position: absolute;
+    top: 425px;
+    left: 430px;
+    height: 25px;
+}
+#enemy-weapon {
     display: none;
     z-index: 1;
     position: absolute;
     top: 325px;
-    left: 380px;
-    width: 170px;
-    transform: rotate(275deg);
+    left: 1000px;
+    width: 120px;
+    transform: rotate(100deg);
 }
-
+#enemy-magic {
+    display: none;
+    z-index: 1;
+    position: absolute;
+    top: 425px;
+    left: 1040px;
+    height: 35px;
+}
+#player-potion {
+    display: none;
+    z-index: 1;
+    position: absolute;
+    top: 310px;
+    left: 440px;
+    height: 50px;
+}
+#enemy-potion {
+    display: none;
+    z-index: 1;
+    position: absolute;
+    top: 310px;
+    left: 1050px;
+    height: 50px;
+}
+#player-shield {
+    display: none;
+    z-index: 1;
+    position: absolute;
+    top: 330px;
+    left: 360px;
+    height: 250px;
+}
+#enemy-shield {
+    display: none;
+    z-index: 1;
+    position: absolute;
+    top: 310px;
+    left: 960px;
+    height: 250px;
+}

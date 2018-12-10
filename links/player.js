@@ -13,7 +13,6 @@ function Player(playerType, hp, mp, strength, speed, magic, shield, potion) {
     this.attack = function () {
         const lastAction = document.querySelector('#last-action')
         const enemyHP = document.querySelector('#enemy-hp')
-        const weapon = document.querySelector('#weapon')
 
         if (enemy.shield === false) {
             enemy.hp -= 20;
@@ -21,15 +20,14 @@ function Player(playerType, hp, mp, strength, speed, magic, shield, potion) {
             enemy.hp -= 5;
             enemy.shield = false
         }
-        enemyHP.style.width = enemy.hp + '%'
 
         myVar = setInterval(weaponFlip, 10)
         let deg = 275;
         let x = 380;
-        weapon.style.display = 'block'
 
         function weaponFlip () {
             const weapon = document.querySelector('#weapon')
+            weapon.style.display = 'block'
             deg+=11
             x+=5
             if (x >= 900) {
@@ -41,15 +39,32 @@ function Player(playerType, hp, mp, strength, speed, magic, shield, potion) {
             weapon.style.transform = `rotate(${deg}deg)`
         }
 
+        enemyHP.style.width = enemy.hp + '%'
+
         lastAction.innerHTML = 'You attacked the enemy'
         Game.updateFight('enemy')
     };
 
     this.useShield = function () {
         const lastAction = document.querySelector('#last-action')
-        if (this.shield === false) this.shield = !this.shield
+        if (this.shield === false) {
+            this.shield = !this.shield
+            
+            myVar = setInterval(showShield, 10)
+            let shieldTime = 0;
 
-        lastAction.innerHTML = 'You have used your shield'
+            function showShield () {
+                const shieldImage = document.querySelector('#player-shield')
+                shieldImage.style.display = 'block'
+                shieldTime+=1
+                if (shieldTime >= 50) {
+                    clearInterval(myVar)
+                    shieldImage.style.display = 'none'
+                }
+            }
+            lastAction.innerHTML = 'You have used your shield'
+        } 
+
         Game.updateFight('enemy')
     };
 
@@ -66,6 +81,27 @@ function Player(playerType, hp, mp, strength, speed, magic, shield, potion) {
                 enemy.shield = false
             }
             player.mp -= 25;
+
+            myVar = setInterval(magicFly, 10)
+            let height = 25;
+            let x = 430;
+            let y = 425
+
+            function magicFly () {
+                const magicBall = document.querySelector('#player-magic')
+                magicBall.style.display = 'block'
+                height+=4
+                x+=5
+                y-=2
+                if (x >= 850) {
+                    clearInterval(myVar)
+                    magicBall.style.display = 'none'
+                }
+                
+                magicBall.style.left = x + 'px'
+                magicBall.style.top = y + 'px'
+                magicBall.style.height = height + 'px'
+            }
 
             lastAction.innerHTML = 'You have used magic on the enemy'
             enemyHP.style.width = enemy.hp + '%'
@@ -93,6 +129,21 @@ function Player(playerType, hp, mp, strength, speed, magic, shield, potion) {
                 healAmt = 100-this.hp
             } else {
                 healAmt = 20
+            }
+
+            myVar = setInterval(potionSpill, 10)
+            let deg = 0;
+
+            function potionSpill () {
+                const potionBottle = document.querySelector('#player-potion')
+                potionBottle.style.display = 'block'
+                deg-=1
+                if (deg <= -150) {
+                    clearInterval(myVar)
+                    potionBottle.style.display = 'none'
+                }
+                
+                potionBottle.style.transform = `rotate(${deg}deg)`
             }
 
             this.potion -= 1
