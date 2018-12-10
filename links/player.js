@@ -38,32 +38,51 @@ function Player(playerType, hp, mp, strength, speed, magic, shield, potion) {
         const enemyHP = document.querySelector('#enemy-hp')
         const playerMP = document.querySelector('#player-mp')
 
-        if (enemy.shield === false) {
-            enemy.hp -= 30;
+        if (this.mp >= 25) {
+            if (enemy.shield === false) {
+                enemy.hp -= 30;
+            } else {
+                enemy.hp -= 10;
+                enemy.shield = false
+            }
+            player.mp -= 25;
+
+            lastAction.innerHTML = 'You have used magic on the enemy'
+            enemyHP.style.width = enemy.hp + '%'
+            playerMP.style.width = player.mp + '%'
+
+            Game.updateFight('enemy')   
         } else {
-            enemy.hp -= 10;
-            enemy.shield = false
+            lastAction.innerHTML = 'You do not have enough mp to use magic'
         }
-        player.mp -= 25;
-
-        enemyHP.style.width = enemy.hp + '%'
-        playerMP.style.width = player.mp + '%'
-
-        lastAction.innerHTML = 'You have used magic on the enemy'
-        Game.updateFight('enemy')
     };
 
     this.usePotion = function () {
         const lastAction = document.querySelector('#last-action')
         const playerHP = document.querySelector('#player-hp')
+        let healAmt
 
-        this.potion -= 1
-        this.hp += 20
+        if (this.potion == 0) {
+            lastAction.innerHTML = 'You do not have any more potions'
+        } else {
+            if (this.hp >= 100) {
+                lastAction.innerHTML = 'You already have full health'
+                return
+            }
+            else if (this.hp > 80) {
+                healAmt = 100-this.hp
+            } else {
+                healAmt = 20
+            }
 
-        playerHP.style.width = this.hp + '%'
+            this.potion -= 1
+            this.hp += healAmt
 
-        lastAction.innerHTML = `You used a potion, ${this.potion} left`
-        Game.updateFight('enemy')
+            playerHP.style.width = this.hp + '%'
+
+            lastAction.innerHTML = `You used a potion, ${this.potion} left`
+            Game.updateFight('enemy')
+        }
     }
 }
 

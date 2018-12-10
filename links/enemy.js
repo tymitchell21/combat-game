@@ -16,35 +16,45 @@ function Enemy(enemyType, hp, mp, strength, speed, magic, shield, potion) {
         let random
         let action
 
-        if (parseInt(this.potion) > 0) {
-            random = Math.floor(Math.random() * Math.floor(10));
-        } else {
+        if (parseInt(this.potion) <= 0) {
             random = Math.floor(Math.random() * Math.floor(7));
+        } else {
+            random = Math.floor(Math.random() * Math.floor(10));
         }
 
         if (this.hp >= 50) {
             action = choice[random]
-            console.log('one')
         } else {
             action = choiceUnder50HP[random]
-            console.log('two')
         }
 
+        console.log(action)
         switch (action) {
             case 0:
                 this.attack()
                 break;
             case 1:
-                this.useMagic()
+                console.log('magic')
+                if (this.mp >= 25) {
+                    this.useMagic()
+                } else {
+                    this.attack()
+                }
                 break;
             case 2:
                 this.useShield()
                 break;
             case 3:
-                this.usePotion()
+                console.log('potion')
+                if (this.hp < 100) {
+                    this.usePotion()
+                } else {
+                    this.attack()
+                }
                 break;
             default:
                 this.attack()
+                break;
         }
 
         const continueBtn = document.querySelector('#continue')
@@ -105,9 +115,16 @@ function Enemy(enemyType, hp, mp, strength, speed, magic, shield, potion) {
         const lastAction = document.querySelector('#last-action')
         const fightMenu = document.querySelector('#fight-menu')
         const enemyHP = document.querySelector('#enemy-hp')
+        let healAmt
+
+        if (this.hp > 80) {
+            healAmt = 100-this.hp
+        } else {
+            healAmt = 20
+        }
 
         this.potion -= 1
-        this.hp += 20
+        this.hp += healAmt
 
         enemyHP.style.width = this.hp + '%'
 
