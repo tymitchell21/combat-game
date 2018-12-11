@@ -1,7 +1,7 @@
 let enemy;
 
 function Enemy(enemyType, hp, mp, strength, speed, magic, shield, potion) {
-    Character.call(this, playerType, hp, mp, strength, speed, magic, shield, potion)
+    Character.call(this, enemyType, hp, mp, strength, speed, magic, shield, potion)
 }
 // randomly chooses an action for the enemy
 Enemy.prototype.actionChoice = function () {
