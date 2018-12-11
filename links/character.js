@@ -8,3 +8,7 @@ function Character(playerType, hp, mp, strength, speed, magic, shield, potion) {
     this.shield = shield;
     this.potion = potion;
 }
+
+Character.prototype.hey = function () {
+    console.log('hey')
+}

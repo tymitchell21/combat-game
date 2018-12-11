@@ -3,6 +3,9 @@ let enemy;
 function Enemy(enemyType, hp, mp, strength, speed, magic, shield, potion) {
     Character.call(this, enemyType, hp, mp, strength, speed, magic, shield, potion)
 }
+
+Enemy.prototype = Object.create(Character.prototype);
+
 // randomly chooses an action for the enemy
 Enemy.prototype.actionChoice = function () {
     let choice = [0,0,0,0,1,1,1,2,2,3]
@@ -59,6 +62,8 @@ Enemy.prototype.actionChoice = function () {
 Enemy.prototype.attack = function () {
     const lastAction = document.querySelector('#last-action')
     const playerHP = document.querySelector('#player-hp')
+
+    this.hey()
 
     if (player.shield === false) {
         player.hp -= this.strength;
@@ -191,3 +196,9 @@ Enemy.prototype.usePotion = function () {
     lastAction.innerHTML = `The enemy has used a potion, ${this.potion} left`
     Game.updateFight('player')
 };
+
+Object.defineProperty(Enemy.prototype, 'constructor', { 
+    value: Enemy, 
+    enumerable: false,
+    writable: true
+});

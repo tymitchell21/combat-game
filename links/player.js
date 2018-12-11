@@ -2,11 +2,16 @@ let player;
 // player object
 function Player(playerType, hp, mp, strength, speed, magic, shield, potion) {
     Character.call(this, playerType, hp, mp, strength, speed, magic, shield, potion)
+
 }
+
+Player.prototype = Object.create(Character.prototype);
 
 Player.prototype.attack = function () {
     const lastAction = document.querySelector('#last-action')
     const enemyHP = document.querySelector('#enemy-hp')
+
+    this.hey()
 
     if (enemy.shield === false) {
         enemy.hp -= this.strength;
@@ -158,3 +163,9 @@ Player.prototype.usePotion = function () {
         Game.updateFight('enemy')
     }
 };
+
+Object.defineProperty(Player.prototype, 'constructor', { 
+    value: Player, 
+    enumerable: false,
+    writable: true
+});
