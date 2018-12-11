@@ -9,25 +9,25 @@ function Enemy(enemyType, hp, mp, strength, speed, magic, shield, potion) {
     this.magic = magic;
     this.shield = shield;
     this.potion = potion;
-
+    // randomly chooses an action for the enemy
     this.actionChoice = function () {
         let choice = [0,0,0,0,1,1,1,2,2,3]
         let choiceUnder50HP = [0,0,1,1,2,2,2,3,3,3]
         let random
         let action
-
+        // only chooses actions 0-2 if enemy is out of potions
         if (parseInt(this.potion) <= 0) {
             random = Math.floor(Math.random() * Math.floor(7));
         } else {
             random = Math.floor(Math.random() * Math.floor(10));
         }
-
+        // puts enemy on defensive when health is below 50
         if (this.hp >= 50) {
             action = choice[random]
         } else {
             action = choiceUnder50HP[random]
         }
-
+        // switch case to determine action from random number
         switch (action) {
             case 0:
                 this.attack()
@@ -57,11 +57,11 @@ function Enemy(enemyType, hp, mp, strength, speed, magic, shield, potion) {
                 this.attack()
                 break;
         }
-
+        // gets rid of continue button
         const continueBtn = document.querySelector('#continue')
         continueBtn.style.display = 'none'
     };
-
+    // attack function for enemy
     this.attack = function () {
         const lastAction = document.querySelector('#last-action')
         const playerHP = document.querySelector('#player-hp')
@@ -73,11 +73,10 @@ function Enemy(enemyType, hp, mp, strength, speed, magic, shield, potion) {
             player.shield = false
         }
         playerHP.style.width = player.hp + '%'
-
+        // animation for attack function
         myVar = setInterval(weaponFlip, 10)
         let deg = 100;
         let x = 1000;
-
         function weaponFlip () {
             const weapon = document.querySelector('#enemy-weapon')
             weapon.style.display = 'block'
@@ -89,7 +88,6 @@ function Enemy(enemyType, hp, mp, strength, speed, magic, shield, potion) {
                 clearInterval(myVar)
                 weapon.style.display = 'none'
             }
-            
             weapon.style.left = x + 'px'
             weapon.style.transform = `rotate(${deg}deg)`
         }
@@ -97,7 +95,7 @@ function Enemy(enemyType, hp, mp, strength, speed, magic, shield, potion) {
         lastAction.innerHTML = 'The enemy has attacked you'
         Game.updateFight('player')
     };
-
+    // function for enemies magic attack
     this.useMagic = function () {
         const lastAction = document.querySelector('#last-action')
         const playerHP = document.querySelector('#player-hp')
@@ -113,12 +111,11 @@ function Enemy(enemyType, hp, mp, strength, speed, magic, shield, potion) {
 
         playerHP.style.width = player.hp + '%'
         enemyMP.style.width = this.mp + '%'
-
+        // animation for using magic
         myVar = setInterval(magicFly, 10)
         let height = 35;
         let x = 1040;
         let y = 425;
-
         function magicFly () {
             const magicBall = document.querySelector('#enemy-magic')
             magicBall.style.display = 'block'
@@ -131,7 +128,6 @@ function Enemy(enemyType, hp, mp, strength, speed, magic, shield, potion) {
                 clearInterval(myVar)
                 magicBall.style.display = 'none'
             }
-            
             magicBall.style.left = x + 'px'
             magicBall.style.top = y + 'px'
             magicBall.style.height = height + 'px'
@@ -140,14 +136,13 @@ function Enemy(enemyType, hp, mp, strength, speed, magic, shield, potion) {
         lastAction.innerHTML = 'The enemy has used magic on you'
         Game.updateFight('player')
     };
-
+    // enemies use shield function
     this.useShield = function () {
         const lastAction = document.querySelector('#last-action')
         if (this.shield === false) this.shield = !this.shield
-
+        // animation for enemy using shield
         myVar = setInterval(showShield, 10)
         let shieldTime = 0;
-
         function showShield () {
             const shieldImage = document.querySelector('#enemy-shield')
             shieldImage.style.display = 'block'
@@ -163,7 +158,7 @@ function Enemy(enemyType, hp, mp, strength, speed, magic, shield, potion) {
         lastAction.innerHTML = 'The enemy has shielded'
         Game.updateFight('player')
     };
-
+    // function for enemy's use potion action
     this.usePotion = function () {
         const lastAction = document.querySelector('#last-action')
         const enemyHP = document.querySelector('#enemy-hp')
@@ -174,10 +169,9 @@ function Enemy(enemyType, hp, mp, strength, speed, magic, shield, potion) {
         } else {
             healAmt = 20
         }
-
+        // animation for using potion
         myVar = setInterval(potionSpill, 10)
         let deg = 0;
-
         function potionSpill () {
             const potionBottle = document.querySelector('#enemy-potion')
             potionBottle.style.display = 'block'
@@ -188,7 +182,6 @@ function Enemy(enemyType, hp, mp, strength, speed, magic, shield, potion) {
                 clearInterval(myVar)
                 potionBottle.style.display = 'none'
             }
-            
             potionBottle.style.transform = `rotate(${deg}deg)`
         }
 
