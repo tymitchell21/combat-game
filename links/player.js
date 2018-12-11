@@ -1,14 +1,7 @@
 let player;
 // player object
 function Player(playerType, hp, mp, strength, speed, magic, shield, potion) {
-    this.playerType = playerType;
-    this.hp = hp;
-    this.mp = mp;
-    this.strength = strength;
-    this.speed = speed;
-    this.magic = magic;
-    this.shield = shield;
-    this.potion = potion;
+    Character.call(this, playerType, hp, mp, strength, speed, magic, shield, potion)
 }
 
 Player.prototype.attack = function () {
