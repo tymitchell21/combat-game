@@ -40,7 +40,7 @@ function Enemy(enemyType, hp, mp, strength, speed, magic, shield, potion) {
                 }
                 break;
             case 2:
-                if (this.shield == fasle) {
+                if (this.shield == false) {
                     this.useShield()
                 } else {
                     this.attack()
@@ -67,9 +67,9 @@ function Enemy(enemyType, hp, mp, strength, speed, magic, shield, potion) {
         const playerHP = document.querySelector('#player-hp')
 
         if (player.shield === false) {
-            player.hp -= 20;
+            player.hp -= this.strength;
         } else {
-            player.hp -= 5;
+            player.hp -= this.strength/5;
             player.shield = false
         }
         playerHP.style.width = player.hp + '%'
@@ -77,6 +77,8 @@ function Enemy(enemyType, hp, mp, strength, speed, magic, shield, potion) {
         myVar = setInterval(weaponFlip, 10)
         let deg = 100;
         let x = 1000;
+        var audio = new Audio('links/audio/sword.mp3');
+        audio.play();
         function weaponFlip () {
             const weapon = document.querySelector('#enemy-weapon')
             weapon.style.display = 'block'
@@ -102,9 +104,9 @@ function Enemy(enemyType, hp, mp, strength, speed, magic, shield, potion) {
         const enemyMP = document.querySelector('#enemy-mp')
 
         if (player.shield === false) {
-            player.hp -= 30;
+            player.hp -= 1000/player.speed;
         } else {
-            player.hp -= 10;
+            player.hp -= 250/player.speed;
             player.shield = false
         }
         this.mp -= 25;
@@ -116,6 +118,8 @@ function Enemy(enemyType, hp, mp, strength, speed, magic, shield, potion) {
         let height = 35;
         let x = 1040;
         let y = 425;
+        var audio = new Audio('links/audio/magicSound.mp3');
+        audio.play();
         function magicFly () {
             const magicBall = document.querySelector('#enemy-magic')
             magicBall.style.display = 'block'
@@ -147,7 +151,7 @@ function Enemy(enemyType, hp, mp, strength, speed, magic, shield, potion) {
             const shieldImage = document.querySelector('#enemy-shield')
             shieldImage.style.display = 'block'
             shieldTime+=1
-            if (shieldTime >= 50) {
+            if (shieldTime >= 100) {
                 const fightMenu = document.querySelector('#fight-menu')
                 fightMenu.style.display = 'flex'
                 clearInterval(myVar)
@@ -164,10 +168,10 @@ function Enemy(enemyType, hp, mp, strength, speed, magic, shield, potion) {
         const enemyHP = document.querySelector('#enemy-hp')
         let healAmt
 
-        if (this.hp > 80) {
+        if (this.hp > 70) {
             healAmt = 100-this.hp
         } else {
-            healAmt = 20
+            healAmt = 30
         }
         // animation for using potion
         myVar = setInterval(potionSpill, 10)

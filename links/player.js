@@ -15,18 +15,21 @@ function Player(playerType, hp, mp, strength, speed, magic, shield, potion) {
         const enemyHP = document.querySelector('#enemy-hp')
 
         if (enemy.shield === false) {
-            enemy.hp -= 20;
+            enemy.hp -= this.strength;
         } else {
-            enemy.hp -= 5;
+            enemy.hp -= this.strength/5;
             enemy.shield = false
         }
         // this chunk of code animates the attack
         myVar = setInterval(weaponFlip, 10)
         let deg = 275;
         let x = 380;
+        var audio = new Audio('links/audio/sword.mp3');
+        audio.play();
         function weaponFlip () {
             const weapon = document.querySelector('#weapon')
             weapon.style.display = 'block'
+
             deg+=11
             x+=5
             if (x >= 900) {
@@ -56,7 +59,7 @@ function Player(playerType, hp, mp, strength, speed, magic, shield, potion) {
                 const shieldImage = document.querySelector('#player-shield')
                 shieldImage.style.display = 'block'
                 shieldTime+=1
-                if (shieldTime >= 50) {
+                if (shieldTime >= 100) {
                     const continueBtn = document.querySelector('#continue')
                     continueBtn.style.display = 'block'
                     clearInterval(myVar)
@@ -80,9 +83,9 @@ function Player(playerType, hp, mp, strength, speed, magic, shield, potion) {
         // only does anything if the player has enoug mp
         if (this.mp >= 25) {
             if (enemy.shield === false) {
-                enemy.hp -= 30;
+                enemy.hp -= 1000/enemy.speed;
             } else {
-                enemy.hp -= 10;
+                enemy.hp -= 250/enemy.speed;
                 enemy.shield = false
             }
             player.mp -= 25;
@@ -91,6 +94,8 @@ function Player(playerType, hp, mp, strength, speed, magic, shield, potion) {
             let height = 25;
             let x = 430;
             let y = 425
+            var audio = new Audio('links/audio/magicSound.mp3');
+            audio.play();
             function magicFly () {
                 const magicBall = document.querySelector('#player-magic')
                 magicBall.style.display = 'block'
@@ -130,10 +135,10 @@ function Player(playerType, hp, mp, strength, speed, magic, shield, potion) {
                 lastAction.innerHTML = 'You already have full health'
                 return
             }
-            else if (this.hp > 80) {
+            else if (this.hp > 70) {
                 healAmt = 100-this.hp
             } else {
-                healAmt = 20
+                healAmt = 30
             }
             // animates the use potion
             myVar = setInterval(potionSpill, 10)
