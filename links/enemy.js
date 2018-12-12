@@ -15,7 +15,7 @@ Enemy.prototype.chooseAction = function () {
     // only chooses actions 0-2 if enemy is out of potions
     const randomChoice = parseInt(this.potion) <= 0
         ? Game.getRandomNumber(7)
-        : Game.getRandomNumber(10);
+        : Game.getRandomNumber(10)
 
     // puts enemy on defensive when health is below 50
     const resolvedChoice = this.hp >= 50
@@ -49,28 +49,9 @@ Enemy.prototype.attack = function () {
     }
 
     playerHP.style.width = player.hp + '%'
-    // animation for attack function
-    myVar = setInterval(weaponFlip, 10)
-    let deg = 100;
-    let x = 1000;
-    var audio = new Audio('links/audio/sword.mp3');
-    audio.play();
-    function weaponFlip() {
-        const weapon = document.querySelector('#enemy-weapon')
-        weapon.style.display = 'block'
-        deg -= 11
-        x -= 5
-        if (x <= 400) {
-            const fightMenu = document.querySelector('#fight-menu')
-            fightMenu.style.display = 'flex'
-            clearInterval(myVar)
-            weapon.style.display = 'none'
-        }
-        weapon.style.left = x + 'px'
-        weapon.style.transform = `rotate(${deg}deg)`
-    }
-
-    Character.prototype.doAnimation()
+    // animation and audio for attack function
+    this.playAudio('links/audio/sword.mp3')
+    this.doAnimation(Game.animatedObjectOptions['EnemyAttack'])
 
     lastAction.innerHTML = 'The enemy has attacked you'
     Game.updateFight('player')
@@ -92,28 +73,8 @@ Enemy.prototype.useMagic = function () {
     playerHP.style.width = player.hp + '%'
     enemyMP.style.width = this.mp + '%'
     // animation for using magic
-    myVar = setInterval(magicFly, 10)
-    let height = 35;
-    let x = 1040;
-    let y = 425;
-    var audio = new Audio('links/audio/magicSound.mp3');
-    audio.play();
-    function magicFly() {
-        const magicBall = document.querySelector('#enemy-magic')
-        magicBall.style.display = 'block'
-        height += 3
-        x -= 10
-        y -= 1.5
-        if (x <= 200) {
-            const fightMenu = document.querySelector('#fight-menu')
-            fightMenu.style.display = 'flex'
-            clearInterval(myVar)
-            magicBall.style.display = 'none'
-        }
-        magicBall.style.left = x + 'px'
-        magicBall.style.top = y + 'px'
-        magicBall.style.height = height + 'px'
-    }
+    this.playAudio('links/audio/magicSound.mp3')
+    this.doAnimation(Game.animatedObjectOptions['EnemyMagic'])
 
     lastAction.innerHTML = 'The enemy has used magic on you'
     Game.updateFight('player')
@@ -123,19 +84,7 @@ Enemy.prototype.useShield = function () {
     const lastAction = document.querySelector('#last-action')
     if (this.shield === false) this.shield = !this.shield
     // animation for enemy using shield
-    myVar = setInterval(showShield, 10)
-    let shieldTime = 0;
-    function showShield() {
-        const shieldImage = document.querySelector('#enemy-shield')
-        shieldImage.style.display = 'block'
-        shieldTime += 1
-        if (shieldTime >= 100) {
-            const fightMenu = document.querySelector('#fight-menu')
-            fightMenu.style.display = 'flex'
-            clearInterval(myVar)
-            shieldImage.style.display = 'none'
-        }
-    }
+    this.doAnimation(Game.animatedObjectOptions['EnemyShield'])
 
     lastAction.innerHTML = 'The enemy has shielded'
     Game.updateFight('player')
@@ -152,20 +101,7 @@ Enemy.prototype.usePotion = function () {
         healAmt = 30
     }
     // animation for using potion
-    myVar = setInterval(potionSpill, 10)
-    let deg = 0;
-    function potionSpill() {
-        const potionBottle = document.getElementById('enemy-potion')
-        potionBottle.style.display = 'block'
-        deg -= 1
-        if (deg <= -150) {
-            const fightMenu = document.querySelector('#fight-menu')
-            fightMenu.style.display = 'flex'
-            clearInterval(myVar)
-            potionBottle.style.display = 'none'
-        }
-        potionBottle.style.transform = `rotate(${deg}deg)`
-    }
+    this.doAnimation(Game.animatedObjectOptions['EnemyPotion'])
 
     this.potion -= 1
     this.hp += healAmt

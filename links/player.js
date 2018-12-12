@@ -17,28 +17,10 @@ Player.prototype.attack = function () {
         enemy.hp -= this.strength / 5;
         enemy.shield = false
     }
-    // this chunk of code animates the attack
-    myVar = setInterval(weaponFlip, 10)
-    let deg = 275;
-    let x = 380;
-    var audio = new Audio('links/audio/sword.mp3');
-    audio.play();
-    function weaponFlip() {
-        const weapon = document.querySelector('#weapon')
-        weapon.style.display = 'block'
 
-        deg += 11
-        x += 5
-        if (x >= 900) {
-            weapon.style.display = 'none'
-            const continueBtn = document.querySelector('#continue')
-            continueBtn.style.display = 'block'
-            clearInterval(myVar)
-        }
-        weapon.style.left = x + 'px'
-        weapon.style.transform = `rotate(${deg}deg)`
-    }
-    // updates hp
+    this.playAudio('links/audio/sword.mp3')
+    this.doAnimation(Game.animatedObjectOptions['PlayerAttack'])
+    
     enemyHP.style.width = enemy.hp + '%'
 
     lastAction.innerHTML = 'You attacked the enemy'
@@ -49,23 +31,9 @@ Player.prototype.useShield = function () {
     const lastAction = document.querySelector('#last-action')
     if (this.shield === false) {
         this.shield = !this.shield
-        // this chunk animates the shield action
-        myVar = setInterval(showShield, 10)
-        let shieldTime = 0;
-        function showShield() {
-            const shieldImage = document.querySelector('#player-shield')
-            shieldImage.style.display = 'block'
-            shieldTime += 1
-            if (shieldTime >= 100) {
-                const continueBtn = document.querySelector('#continue')
-                continueBtn.style.display = 'block'
-                clearInterval(myVar)
-                shieldImage.style.display = 'none'
-            }
-        }
+        this.doAnimation(Game.animatedObjectOptions['PlayerShield'])
         lastAction.innerHTML = 'You have used your shield'
     } else {
-        // just returns if the player is already shielded
         lastAction.innerHTML = 'You are already shielded'
         return
     }
@@ -87,28 +55,8 @@ Player.prototype.useMagic = function () {
         }
         player.mp -= 25;
         // this animates the magic action
-        myVar = setInterval(magicFly, 10)
-        let height = 25;
-        let x = 430;
-        let y = 425
-        var audio = new Audio('links/audio/magicSound.mp3');
-        audio.play();
-        function magicFly() {
-            const magicBall = document.querySelector('#player-magic')
-            magicBall.style.display = 'block'
-            height += 4
-            x += 5
-            y -= 2
-            if (x >= 850) {
-                const continueBtn = document.querySelector('#continue')
-                continueBtn.style.display = 'block'
-                clearInterval(myVar)
-                magicBall.style.display = 'none'
-            }
-            magicBall.style.left = x + 'px'
-            magicBall.style.top = y + 'px'
-            magicBall.style.height = height + 'px'
-        }
+        this.playAudio('links/audio/magicSound.mp3')
+        this.doAnimation(Game.animatedObjectOptions['PlayerMagic'])
         // updates mp and hp
         lastAction.innerHTML = 'You have used magic on the enemy'
         enemyHP.style.width = enemy.hp + '%'
@@ -138,20 +86,7 @@ Player.prototype.usePotion = function () {
             healAmt = 30
         }
         // animates the use potion
-        myVar = setInterval(potionSpill, 10)
-        let deg = 0;
-        function potionSpill() {
-            const potionBottle = document.querySelector('#player-potion')
-            potionBottle.style.display = 'block'
-            deg -= 1
-            if (deg <= -150) {
-                const continueBtn = document.querySelector('#continue')
-                continueBtn.style.display = 'block'
-                clearInterval(myVar)
-                potionBottle.style.display = 'none'
-            }
-            potionBottle.style.transform = `rotate(${deg}deg)`
-        }
+        this.doAnimation(Game.animatedObjectOptions['PlayerPotion'])
 
         this.potion -= 1
         this.hp += healAmt

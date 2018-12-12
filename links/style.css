@@ -176,7 +176,7 @@
     position: absolute;
     top: 325px;
     left: 380px;
-    width: 170px;
+    height: 160px;
     transform: rotate(275deg);
 }
 #player-magic {
