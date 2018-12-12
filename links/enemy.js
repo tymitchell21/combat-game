@@ -1,76 +1,53 @@
 let enemy;
 
-function Enemy(enemyType, hp, mp, strength, speed, magic, shield, potion) {
-    Character.call(this, enemyType, hp, mp, strength, speed, magic, shield, potion)
+function Enemy({ characterName, strength, speed, magic }, imageElement, prefightNameElement) {
+    Character.call(this, { characterName, strength, speed, magic }, imageElement, prefightNameElement)
 }
 
 Enemy.prototype = Object.create(Character.prototype);
+Enemy.prototype.constructor = Enemy
+
 
 // randomly chooses an action for the enemy
-Enemy.prototype.actionChoice = function () {
-    let choice = [0,0,0,0,1,1,1,2,2,3]
-    let choiceUnder50HP = [0,0,1,1,2,2,2,3,3,3]
-    let random
-    let action
+Enemy.prototype.chooseAction = function () {
+    const choices = ['attack', 'attack', 'attack', 'attack', 'tryMagic', 'tryMagic', 'tryMagic', 'goDefensive', 'goDefensive', 'tryPotion']
+    const choicesUnder50HP = ['attack', 'attack', 'tryMagic', 'tryMagic', 'goDefensive', 'goDefensive', 'goDefensive', 'tryPotion', 'tryPotion', 'tryPotion']
     // only chooses actions 0-2 if enemy is out of potions
-    if (parseInt(this.potion) <= 0) {
-        random = Math.floor(Math.random() * Math.floor(7));
-    } else {
-        random = Math.floor(Math.random() * Math.floor(10));
-    }
+    const randomChoice = parseInt(this.potion) <= 0
+        ? Game.getRandomNumber(7)
+        : Game.getRandomNumber(10);
+
     // puts enemy on defensive when health is below 50
-    if (this.hp >= 50) {
-        action = choice[random]
-    } else {
-        action = choiceUnder50HP[random]
-    }
-    // switch case to determine action from random number
-    switch (action) {
-        case 0:
-            this.attack()
-            break;
-        case 1:
-            if (this.mp >= 25) {
-                this.useMagic()
-            } else {
-                this.attack()
-            }
-            break;
-        case 2:
-            if (this.shield == false) {
-                this.useShield()
-            } else {
-                this.attack()
-            }
-            break;
-        case 3:
-            if (this.hp < 100) {
-                this.usePotion()
-            } else {
-                this.attack()
-            }
-            break;
-        default:
-            this.attack()
-            break;
-    }
+    const resolvedChoice = this.hp >= 50
+        ? choices[randomChoice]
+        : choicesUnder50HP[randomChoice]
+
+    const resolvedAction = {
+        attack: () => this.attack(),
+        tryMagic: () => this.mp >= 25 ? this.useMagic() : this.attack(),
+        goDefensive: () => this.shield == false ? this.useShield() : this.attack(),
+        tryPotion: () => this.hp < 100 ? this.usePotion() : this.attack(),
+    }[resolvedChoice]
+
+    resolvedAction()
+
     // gets rid of continue button
     const continueBtn = document.querySelector('#continue')
     continueBtn.style.display = 'none'
 };
+
 // attack function for enemy
 Enemy.prototype.attack = function () {
     const lastAction = document.querySelector('#last-action')
     const playerHP = document.querySelector('#player-hp')
 
-    this.hey()
-
     if (player.shield === false) {
         player.hp -= this.strength;
     } else {
-        player.hp -= this.strength/5;
+        player.hp -= this.strength / 5;
         player.shield = false
     }
+
     playerHP.style.width = player.hp + '%'
     // animation for attack function
     myVar = setInterval(weaponFlip, 10)
@@ -78,11 +55,11 @@ Enemy.prototype.attack = function () {
     let x = 1000;
     var audio = new Audio('links/audio/sword.mp3');
     audio.play();
-    function weaponFlip () {
+    function weaponFlip() {
         const weapon = document.querySelector('#enemy-weapon')
         weapon.style.display = 'block'
-        deg-=11
-        x-=5
+        deg -= 11
+        x -= 5
         if (x <= 400) {
             const fightMenu = document.querySelector('#fight-menu')
             fightMenu.style.display = 'flex'
@@ -92,6 +69,8 @@ Enemy.prototype.attack = function () {
         weapon.style.left = x + 'px'
         weapon.style.transform = `rotate(${deg}deg)`
     }
+
+    Character.prototype.doAnimation()
 
     lastAction.innerHTML = 'The enemy has attacked you'
     Game.updateFight('player')
@@ -103,9 +82,9 @@ Enemy.prototype.useMagic = function () {
     const enemyMP = document.querySelector('#enemy-mp')
 
     if (player.shield === false) {
-        player.hp -= 1000/player.speed;
+        player.hp -= 1000 / player.speed;
     } else {
-        player.hp -= 250/player.speed;
+        player.hp -= 250 / player.speed;
         player.shield = false
     }
     this.mp -= 25;
@@ -119,12 +98,12 @@ Enemy.prototype.useMagic = function () {
     let y = 425;
     var audio = new Audio('links/audio/magicSound.mp3');
     audio.play();
-    function magicFly () {
+    function magicFly() {
         const magicBall = document.querySelector('#enemy-magic')
         magicBall.style.display = 'block'
-        height+=3
-        x-=10
-        y-=1.5
+        height += 3
+        x -= 10
+        y -= 1.5
         if (x <= 200) {
             const fightMenu = document.querySelector('#fight-menu')
             fightMenu.style.display = 'flex'
@@ -146,10 +125,10 @@ Enemy.prototype.useShield = function () {
     // animation for enemy using shield
     myVar = setInterval(showShield, 10)
     let shieldTime = 0;
-    function showShield () {
+    function showShield() {
         const shieldImage = document.querySelector('#enemy-shield')
         shieldImage.style.display = 'block'
-        shieldTime+=1
+        shieldTime += 1
         if (shieldTime >= 100) {
             const fightMenu = document.querySelector('#fight-menu')
             fightMenu.style.display = 'flex'
@@ -168,17 +147,17 @@ Enemy.prototype.usePotion = function () {
     let healAmt
 
     if (this.hp > 70) {
-        healAmt = 100-this.hp
+        healAmt = 100 - this.hp
     } else {
         healAmt = 30
     }
     // animation for using potion
     myVar = setInterval(potionSpill, 10)
     let deg = 0;
-    function potionSpill () {
-        const potionBottle = document.querySelector('#enemy-potion')
+    function potionSpill() {
+        const potionBottle = document.getElementById('enemy-potion')
         potionBottle.style.display = 'block'
-        deg-=1
+        deg -= 1
         if (deg <= -150) {
             const fightMenu = document.querySelector('#fight-menu')
             fightMenu.style.display = 'flex'
@@ -196,9 +175,3 @@ Enemy.prototype.usePotion = function () {
     lastAction.innerHTML = `The enemy has used a potion, ${this.potion} left`
     Game.updateFight('player')
 };
-
-Object.defineProperty(Enemy.prototype, 'constructor', { 
-    value: Enemy, 
-    enumerable: false,
-    writable: true
-});

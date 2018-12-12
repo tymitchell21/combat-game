@@ -1,71 +1,71 @@
 const Game = {
+    characterOptions: {
+        Cloud: {
+            characterName: 'Cloud', 
+            strength: 20, 
+            speed: 60, 
+            magic: 30, 
+        },
+        Auron: {
+            characterName: 'Auron', 
+            strength: 30, 
+            speed: 30, 
+            magic: 40, 
+        },
+        Tifa: {
+            characterName: 'Tifa', 
+            strength: 15, 
+            speed: 80, 
+            magic: 90, 
+        },
+    },
+    enemyOptions: {
+        Sephiroth: {
+            characterName: 'Sephiroth', 
+            strength: 30, 
+            speed: 40, 
+            magic: 90, 
+        },
+        Kefka: {
+            characterName: 'Kefka', 
+            strength: 20, 
+            speed: 60, 
+            magic: 90, 
+        },
+        Kuja: {
+            characterName: 'Kuja', 
+            strength: 15, 
+            speed: 50, 
+            magic: 90, 
+        },
+    },
+    getRandomNumber: (max = 10) => Math.floor(Math.random() * Math.floor(max)),
     // starts the game
-    startGame: function(playerType) {
-        this.createPlayer(playerType);
+    startGame: function(chosenCharacterName) {
+        this.createPlayer(chosenCharacterName);
         this.preFight();
     },
     // creates the player
-    createPlayer: function(playerType) {
-        const playerImage = document.querySelector('#character-one-image')
-        const prePlayerName = document.querySelector('#pre-player-name')
+    createPlayer: function(chosenCharacterName) {
+        const imageElement = document.querySelector('#character-one-image')
+        const prefightNameElement = document.querySelector('#pre-player-name')
+
+        player = new Player(Game.characterOptions[chosenCharacterName], imageElement, prefightNameElement)
     
-        switch (playerType) {
-            case 'Cloud': 
-                player = new Player (playerType, 100, 100, 20, 60, 30, false, 3)
-                playerImage.src = 'links/img/cloud.png'
-                playerImage.id = 'cloud'
-                prePlayerName.innerHTML = 'Cloud'
-                break;
-            case 'Auron':
-                player = new Player (playerType, 100, 100, 30, 30, 40, false, 3)
-                playerImage.src = 'links/img/auron.png'
-                playerImage.id = 'auron'
-                prePlayerName.innerHTML = 'Auron'
-                break;
-            case 'Tifa':
-                player = new Player (playerType, 100, 100, 15, 80, 90, false, 3)
-                playerImage.src = 'links/img/tifa.png'
-                playerImage.id = 'tifa'
-                prePlayerName.innerHTML = 'Tifa'
-                break;
-        }
-        const playerSelect = document.querySelector('#player-selection')
-        playerSelect.style.display = 'none';
+        const playerSelectMenu = document.querySelector('#player-selection')
+        playerSelectMenu.style.display = 'none';
     },
     // sets prefight menu
     preFight: function() {
-        const preFight = document.querySelector('#pre-fight')
         const enemyImage = document.querySelector('#enemy-image')
-        const preEnemyName = document.querySelector('#pre-enemy-name')
+        const prefightEnemyNameElement = document.querySelector('#pre-enemy-name')
+        
+        const availableEnemyOptions = Object.keys(Game.enemyOptions)
+        const randomEnemyName = availableEnemyOptions[Game.getRandomNumber(availableEnemyOptions.length)]
+        enemy = new Enemy(Game.enemyOptions[randomEnemyName], enemyImage, prefightEnemyNameElement)
 
+        const preFight = document.querySelector('#pre-fight')
         preFight.style.display = 'flex'
-
-        const sephiroth = new Enemy('Sephiroth', 100, 100, 30, 40, 90, false, 3)
-        const kefka = new Enemy('Kefka', 100, 100, 20, 60, 90, false, 3)
-        const kuja = new Enemy('kuja', 100, 100, 15, 50, 90, false, 3)
-
-        const random = Math.floor(Math.random() * Math.floor(3));
-        // switch case for enemy selection
-        switch (random) {
-            case 0:
-                enemy = sephiroth
-                enemyImage.src = 'links/img/sephiroth.png'
-                enemyImage.id = 'sephiroth'
-                preEnemyName.innerHTML = 'Sephiroth'
-                break;
-            case 1: 
-                enemy = kefka
-                enemyImage.src = 'links/img/kefka.png'
-                enemyImage.id = 'kefka'
-                preEnemyName.innerHTML = 'Kefka'
-                break;
-            case 2:
-                enemy = kuja
-                enemyImage.src = 'links/img/kuja.png'
-                enemyImage.id = 'kuja'
-                preEnemyName.innerHTML = 'Kuja'
-                break;
-        }
     },
     // starts the fight
     startFight: function() {

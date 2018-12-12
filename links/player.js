@@ -1,22 +1,20 @@
 let player;
 // player object
-function Player(playerType, hp, mp, strength, speed, magic, shield, potion) {
-    Character.call(this, playerType, hp, mp, strength, speed, magic, shield, potion)
-
+function Player({ characterName, strength, speed, magic }, imageElement, prefightNameElement) {
+    Character.call(this, { characterName, strength, speed, magic }, imageElement, prefightNameElement)
 }
 
-Player.prototype = Object.create(Character.prototype);
+Player.prototype = Object.create(Character.prototype)
+Player.prototype.constructor = Player;
 
 Player.prototype.attack = function () {
     const lastAction = document.querySelector('#last-action')
     const enemyHP = document.querySelector('#enemy-hp')
 
-    this.hey()
-
     if (enemy.shield === false) {
         enemy.hp -= this.strength;
     } else {
-        enemy.hp -= this.strength/5;
+        enemy.hp -= this.strength / 5;
         enemy.shield = false
     }
     // this chunk of code animates the attack
@@ -25,12 +23,12 @@ Player.prototype.attack = function () {
     let x = 380;
     var audio = new Audio('links/audio/sword.mp3');
     audio.play();
-    function weaponFlip () {
+    function weaponFlip() {
         const weapon = document.querySelector('#weapon')
         weapon.style.display = 'block'
 
-        deg+=11
-        x+=5
+        deg += 11
+        x += 5
         if (x >= 900) {
             weapon.style.display = 'none'
             const continueBtn = document.querySelector('#continue')
@@ -54,10 +52,10 @@ Player.prototype.useShield = function () {
         // this chunk animates the shield action
         myVar = setInterval(showShield, 10)
         let shieldTime = 0;
-        function showShield () {
+        function showShield() {
             const shieldImage = document.querySelector('#player-shield')
             shieldImage.style.display = 'block'
-            shieldTime+=1
+            shieldTime += 1
             if (shieldTime >= 100) {
                 const continueBtn = document.querySelector('#continue')
                 continueBtn.style.display = 'block'
@@ -82,9 +80,9 @@ Player.prototype.useMagic = function () {
     // only does anything if the player has enoug mp
     if (this.mp >= 25) {
         if (enemy.shield === false) {
-            enemy.hp -= 1000/enemy.speed;
+            enemy.hp -= 1000 / enemy.speed;
         } else {
-            enemy.hp -= 250/enemy.speed;
+            enemy.hp -= 250 / enemy.speed;
             enemy.shield = false
         }
         player.mp -= 25;
@@ -95,12 +93,12 @@ Player.prototype.useMagic = function () {
         let y = 425
         var audio = new Audio('links/audio/magicSound.mp3');
         audio.play();
-        function magicFly () {
+        function magicFly() {
             const magicBall = document.querySelector('#player-magic')
             magicBall.style.display = 'block'
-            height+=4
-            x+=5
-            y-=2
+            height += 4
+            x += 5
+            y -= 2
             if (x >= 850) {
                 const continueBtn = document.querySelector('#continue')
                 continueBtn.style.display = 'block'
@@ -116,7 +114,7 @@ Player.prototype.useMagic = function () {
         enemyHP.style.width = enemy.hp + '%'
         playerMP.style.width = player.mp + '%'
 
-        Game.updateFight('enemy')   
+        Game.updateFight('enemy')
     } else {
         lastAction.innerHTML = 'You do not have enough mp to use magic'
     }
@@ -135,17 +133,17 @@ Player.prototype.usePotion = function () {
             return
         }
         else if (this.hp > 70) {
-            healAmt = 100-this.hp
+            healAmt = 100 - this.hp
         } else {
             healAmt = 30
         }
         // animates the use potion
         myVar = setInterval(potionSpill, 10)
         let deg = 0;
-        function potionSpill () {
+        function potionSpill() {
             const potionBottle = document.querySelector('#player-potion')
             potionBottle.style.display = 'block'
-            deg-=1
+            deg -= 1
             if (deg <= -150) {
                 const continueBtn = document.querySelector('#continue')
                 continueBtn.style.display = 'block'
@@ -163,9 +161,3 @@ Player.prototype.usePotion = function () {
         Game.updateFight('enemy')
     }
 };
-
-Object.defineProperty(Player.prototype, 'constructor', { 
-    value: Player, 
-    enumerable: false,
-    writable: true
-});
