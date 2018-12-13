@@ -7,23 +7,23 @@
     <title>Final Fantasy Battle Royal</title>
 
     <link rel="stylesheet" href="links/style.css">
-    <script src="links/gamemanager.js"></script>
-    <script src="links/character.js"></script>
-    <script src="links/player.js"></script>
-    <script src="links/enemy.js"></script>
+    <script src="links/gamemanager.js" async></script>
+    <script src="links/character.js" async></script>
+    <script src="links/player.js" async></script>
+    <script src="links/enemy.js" async></script>
 </head>
 <body>
     <div id='menu'>
         <div id='player-selection'>
-            <a href='#' onclick='Game.startGame("Cloud")'>
+            <a id='cloud-select' href='#'>
                 <img src="" alt="" srcset="">
                 <h3>Cloud</h3>
             </a>
-            <a href='#' onclick='Game.startGame("Auron")'>
+            <a id='auron-select' href='#'>
                 <img src="" alt="" srcset="">
                 <h3>Auron</h3>
             </a>
-            <a href='#' onclick='Game.startGame("Tifa")'>
+            <a id='tifa-select' href='#'>
                 <img src="" alt="" srcset="">
                 <h3>Tifa</h3>
             </a>
@@ -35,7 +35,7 @@
             </div>
             <div>
                 <h1>VS.</h1>
-                <button id='start-button' onclick='Game.startFight()'>Start Fight</button>
+                <button id='start-button'>Start Fight</button>
             </div>
             <div id='enemy-pre-fight'>
                 <img src="" alt="" srcset="">
@@ -45,16 +45,16 @@
     </div>
     <div id='fight-menu' style='display: none;'>
         <h1>Choose action:</h1>
-        <button onclick='player.attack()'>Attack</button>
-        <button onclick='player.useMagic()'>Magic</button>
-        <button onclick='player.useShield()'>Shield</button>
-        <button onclick='player.usePotion()'>Potion</button>
+        <button id='attack-button'>Attack</button>
+        <button id='magic-button'>Magic</button>
+        <button id='shield-button'>Shield</button>
+        <button id='potion-button'>Potion</button>
     </div>
     <div id='action-sequence' style='display: none;'>
         <h1 id='last-action'></h1>
         <h1 id='next-turn'>It is your turn</h1>
         <div id='button'>
-            <button id='continue' style='display: none' onclick='enemy.chooseAction()'>continue</button>
+            <button id='continue' style='display: none'>continue</button>
         </div>
     </div>
     <div id='game-wrap'>

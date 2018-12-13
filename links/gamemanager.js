@@ -142,7 +142,7 @@ const Game = {
             degChange: -1,
             totalTime: 150,
             image: 'enemy-potion',
-            nextButton: 'continue'
+            nextButton: 'fight-menu'
         }
     },
     getRandomNumber: (max = 10) => Math.floor(Math.random() * Math.floor(max)),
@@ -191,10 +191,10 @@ const Game = {
     updateFight: function(nextPerson) {
         const nextTurn = document.querySelector('#next-turn')
         const fightMenu = document.querySelector('#fight-menu')
- 
-        nextTurn.innerHTML = `It is now the ${nextPerson}'s turn`
 
-        if (nextPerson === 'enemy') {
+        nextTurn.innerHTML = `It is now ${nextPerson.characterName}'s turn`
+
+        if (nextPerson == enemy) {
             fightMenu.style.display = 'none'
         }
 
@@ -227,3 +227,16 @@ const Game = {
 function reset () {
     location.reload()
 }
+
+document.querySelector('#cloud-select').addEventListener('click', () => {
+    Game.startGame("Cloud")
+})
+document.querySelector('#auron-select').addEventListener('click', () => {
+    Game.startGame("Auron")
+})
+document.querySelector('#tifa-select').addEventListener('click', () => {
+    Game.startGame("Tifa")
+})
+document.querySelector('#start-button').addEventListener('click', () => {
+    Game.startFight()
+})
